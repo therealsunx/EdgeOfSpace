@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScrollBackground : MonoBehaviour {
+public class EnvironmentHandler: MonoBehaviour {
     
     [SerializeField] GameObject background;
     [SerializeField] float size;
     [SerializeField] Transform player;
+
+    public GameObject[] objects;
     
     int viewDist;
     int curBGCoordY;
@@ -30,7 +32,7 @@ public class ScrollBackground : MonoBehaviour {
         _temp.Clear();
         
         Vector3 coord = Vector3.zero;
-        for(int y = -viewDist; y < viewDist; y++){
+        for(int y = 0; y < viewDist; y++){
             float _y = y+curBGCoordY;
             if(!bgInView.ContainsKey(_y)){
                 coord.Set(0f, _y * size, 1f);
