@@ -7,7 +7,8 @@ public class NonPlayerEntity: MonoBehaviour {
     public bool isAttacker;
     public float speed;
     public float effectOnHealth;
-    public float effectOnShield;
+    public float effectOnArmor;
+    public int captureReward;
 
     Transform player;
 
@@ -17,9 +18,9 @@ public class NonPlayerEntity: MonoBehaviour {
 
     void Update(){
         if(isAttacker){
-            Vector3 dir = (player.position - transform.position).normalized;
-            transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(dir.y, dir.x) * 57.29f);
-            transform.Translate(Vector3.right * speed  * Time.deltaTime);
+            Vector3 del = player.position - transform.position;
+            transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(del.y, del.x) * 57.29f);
+            if(del.magnitude > 0.5f) transform.Translate(Vector3.right * speed * PlayerController.difficulty * Time.deltaTime);
         }
     }
 

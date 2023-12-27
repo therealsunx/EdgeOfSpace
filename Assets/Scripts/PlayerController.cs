@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+
+    public static float difficulty = 1f;
     
     Camera cam;
     Rigidbody2D rb;
@@ -13,11 +15,16 @@ public class PlayerController : MonoBehaviour {
     public float maxDrag = 6.8f;
     
     public float health = 1f;
-    public float shield = 0f;
+    public float armor = 0f;
+
     public int score = 0;
+    int height = 0;
+    int captures = 0;
     
     float invincibleTime = 0.3f;
     bool isInvincible = false;
+    
+    float killThreshold = 30f;
 
     Vector3 pointerPos;
     Vector3 initialPos;
@@ -37,8 +44,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     void HandleScore(){
-        int _h = Mathf.RoundToInt(transform.position.y / 5f);
-        if(_h > score) score = _h;
+        int _h = Mathf.RoundToInt(transform.position.y / 10f);
+        if(_h > height) height = _h;
+        score = captures + height;
+        difficulty = 1f + score / 100f;
+        killThreshold = 25f + 5f * difficulty;
     }
 
     public void HandleDeath(){
@@ -61,8 +71,8 @@ public class PlayerController : MonoBehaviour {
             }
         }else{
             stretch = pointerPos - initialPos;
-            if(stretch.magnitude> maxDrag){
-                stretch = stretch.normalized * maxDrag;
+            if(stretch.magnitude > maxDrag * difficulty){
+                stretch = stretch.normalized * maxDrag * difficulty;
             }
 
             if(Input.GetMouseButtonUp(0)){
@@ -101,22 +111,23 @@ public class PlayerController : MonoBehaviour {
             NonPlayerEntity npe = other.GetComponent<NonPlayerEntity>();
 
             if(npe.isAttacker){
-                if(rb.velocity.magnitude > 30f) {
+                if(rb.velocity.magnitude > killThreshold) {
+                    captures += Mathf.RoundToInt(difficulty * npe.captureReward);
                     Destroy(other.gameObject);
                     return;
                 }
                 if(!isInvincible){
-                    health = (1f - shield) * npe.effectOnHealth;
-                    if(shield > 0f) shield -= npe.effectOnShield;
+                    health -= (1f - armor) * npe.effectOnHealth * difficulty;
+                    if(armor > 0f) armor -= npe.effectOnArmor * difficulty;
                     if(health < 0f) HandleDeath();
                     StartCoroutine(Invincible());
                 }
             }else{
                 health += npe.effectOnHealth;
-                shield += npe.effectOnShield;
+                armor += npe.effectOnArmor;
 
                 if(health > 1f) health = 1f;
-                if(shield > 1f) shield = 1f;
+                if(armor > 1f) armor = 1f;
                 Destroy(other.gameObject);
             }
         }

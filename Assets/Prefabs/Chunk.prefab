@@ -53,6 +53,9 @@ MonoBehaviour:
   h_height: 8
   min_n_obs: 2
   max_n_obs: 5
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &6434334928133062745
 GameObject:
   m_ObjectHideFlags: 0

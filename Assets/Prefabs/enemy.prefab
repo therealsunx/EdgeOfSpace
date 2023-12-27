@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7131544799904846824}
   - component: {fileID: 477589137894105415}
   - component: {fileID: 906435413101614529}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: enemy
   m_TagString: npe
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4078763, y: 1.5928, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3420175189857781702}
@@ -231,8 +231,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacker: 1
   speed: 6
-  effectOnHealth: 0.4
-  effectOnShield: 0.3
+  effectOnHealth: 0.2
+  effectOnArmor: 0
+  captureReward: 5
 --- !u!1 &7976086842226983349
 GameObject:
   m_ObjectHideFlags: 0

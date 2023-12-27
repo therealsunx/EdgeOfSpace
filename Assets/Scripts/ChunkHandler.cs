@@ -29,14 +29,15 @@ public class ChunkHandler : MonoBehaviour {
                 pos = Random.onUnitSphere;
                 pos.z = 0f;
                 pos = lastPos + pos.normalized * spread;
-                if(IsValid(pos - transform.position)) break;
+                if(IsValid(pos)) break;
             }
             contents.Add(Instantiate(env.objects[Random.Range(0, env.objects.Length)], pos, Quaternion.identity, transform));
             lastPos = pos;
         }
     }
 
-    bool IsValid(Vector2 del){
+    bool IsValid(Vector2 pos){
+        Vector2 del = pos - (Vector2) transform.position;
         del.Set(Mathf.Abs(del.x), Mathf.Abs(del.y));
         return (del.x < h_width && del.y < h_height);
     }

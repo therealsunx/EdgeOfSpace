@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9209171836967542740}
   - component: {fileID: 3253115863892852858}
   - component: {fileID: -6899645363847679875}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pickup
   m_TagString: npe
   m_Icon: {fileID: 0}
@@ -146,4 +146,5 @@ MonoBehaviour:
   isAttacker: 0
   speed: 0
   effectOnHealth: 0.1
-  effectOnShield: 0.2
+  effectOnArmor: 0
+  captureReward: 2
