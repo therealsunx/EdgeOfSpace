@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
         int _h = Mathf.RoundToInt(transform.position.y / 10f);
         if(_h > height) height = _h;
         score = captures + height;
-        difficulty = 1f + score / 100f;
+        difficulty = 1f + score / 400f;
         killThreshold = 25f + 5f * difficulty;
     }
 

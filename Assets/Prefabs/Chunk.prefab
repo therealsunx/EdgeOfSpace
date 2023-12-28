@@ -47,15 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95db9eb85273dd9fb85d41b4ead0239f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpread: 6
-  maxSpread: 1
-  h_width: 8
-  h_height: 8
-  min_n_obs: 2
-  max_n_obs: 5
-  mask:
-    serializedVersion: 2
-    m_Bits: 128
+  minSpread: {x: 2, y: 3}
+  maxSpread: {x: 8, y: 8}
+  size: {x: 16, y: 16}
 --- !u!1 &6434334928133062745
 GameObject:
   m_ObjectHideFlags: 0

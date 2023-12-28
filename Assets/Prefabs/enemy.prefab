@@ -231,8 +231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacker: 1
   speed: 6
-  effectOnHealth: 0.2
-  effectOnArmor: 0
+  effectOnHealth: 0.1
+  effectOnArmor: 0.1
   captureReward: 5
 --- !u!1 &7976086842226983349
 GameObject:
