@@ -25,7 +25,6 @@ public class ChunkHandler : MonoBehaviour {
             for(int x=0; x < xc; x++){
                 spawn = Random.value > minP;
                 if(spawn){
-                    Debug.Log("Spawned at " + spawnPoint);
                     Instantiate(env.objects[Random.Range(0, env.objects.Length)], spawnPoint, Quaternion.identity, transform);
                 }
                 spawnPoint.x += spread.x;

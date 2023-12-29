@@ -2,35 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct PlayerProps {
+    public bool isAlive;
+    public bool isDashing;
+    public bool isInvincible;
+    public bool superDashMode;
+    public float health;
+    public float armor;
+    public int score;
+};
+
 public class PlayerController : MonoBehaviour {
 
     public static float difficulty = 1f;
-    
+    PlayerProps props = new PlayerProps{
+        isAlive = true, isDashing = false, isInvincible = false, superDashMode = false, health = 1f, armor = 1f, score=0
+    };
+
     Camera cam;
     Rigidbody2D rb;
     
     [SerializeField] TrailRenderer trail;
     [SerializeField] LineRenderer line;
-    [SerializeField] float dashTime = 0.2f, dashCoolDown = 0.4f, dashMultiplier = 1f;
+    [SerializeField] float dashTime = 0.2f, dashCoolDown = 0.4f, dashMultiplier = 1f, superDashTime = 1f;
     public float maxDrag = 6.8f;
-    
-    public float health = 1f;
-    public float armor = 0f;
-
-    public int score = 0;
-    int height = 0;
-    int captures = 0;
+    [SerializeField] int objectLayer = 7;
     
     float invincibleTime = 0.3f;
-    bool isInvincible = false;
     
-    float killThreshold = 30f;
-
     Vector3 pointerPos;
     Vector3 initialPos;
     Vector3 stretch;
 
     bool dragging = false;
+    float _lastH = 0f;
     
     void Start(){
         rb = GetComponent<Rigidbody2D>();
@@ -38,17 +43,20 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update(){
+        if(!props.isAlive) return;
         trail.emitting = rb.velocity.magnitude > 10f;
         HandleScore();
         HandleInput();
     }
 
     void HandleScore(){
-        int _h = Mathf.RoundToInt(transform.position.y / 10f);
-        if(_h > height) height = _h;
-        score = captures + height;
-        difficulty = 1f + score / 400f;
-        killThreshold = 25f + 5f * difficulty;
+        if(props.health <= 0f) HandleDeath();
+
+        if((transform.position.y - _lastH)>=10f) {
+           props.score += 1;
+           _lastH = transform.position.y;
+           difficulty = 1f + props.score / 300f;
+        }
     }
 
     public void HandleDeath(){
@@ -93,43 +101,35 @@ public class PlayerController : MonoBehaviour {
     }
 
     IEnumerator Dash(){
+        props.isDashing = true;
+        props.isInvincible =true;
         yield return new WaitForSeconds(dashTime);
         rb.velocity *= 0.1f;
         yield return new WaitForSeconds(dashCoolDown);
+        props.isDashing = false;
+        props.isInvincible = false;
         rb.gravityScale = 3f;
     }
 
     IEnumerator Invincible(){
-        isInvincible = true;
+        props.isInvincible = true;
         yield return new WaitForSeconds(invincibleTime);
-        isInvincible = false;
+        props.isInvincible = false;
+    }
+
+    IEnumerator SuperDash(){
+        props.superDashMode = true;
+        rb.gravityScale = 0f;
+        yield return new WaitForSeconds(superDashTime);
+        rb.gravityScale =  3f;
+        props.superDashMode = false;
     }
 
     void OnTriggerEnter2D(Collider2D other){
+        if(props.superDashMode && other.gameObject.layer == objectLayer) Destroy(other.gameObject);
         if(other.gameObject.tag == "npe"){
-
-            NonPlayerEntity npe = other.GetComponent<NonPlayerEntity>();
-
-            if(npe.isAttacker){
-                if(rb.velocity.magnitude > killThreshold) {
-                    captures += Mathf.RoundToInt(difficulty * npe.captureReward);
-                    Destroy(other.gameObject);
-                    return;
-                }
-                if(!isInvincible){
-                    health -= (1f - armor) * npe.effectOnHealth * difficulty;
-                    if(armor > 0f) armor -= npe.effectOnArmor * difficulty;
-                    if(health < 0f) HandleDeath();
-                    StartCoroutine(Invincible());
-                }
-            }else{
-                health += npe.effectOnHealth;
-                armor += npe.effectOnArmor;
-
-                if(health > 1f) health = 1f;
-                if(armor > 1f) armor = 1f;
-                Destroy(other.gameObject);
-            }
+            if(other.GetComponent<NonPlayerEntity>().HandlePlayerCollision(ref props)) StartCoroutine(Invincible());
+            else if(Random.value > 0.9f) StartCoroutine(SuperDash());
         }
     }
 }

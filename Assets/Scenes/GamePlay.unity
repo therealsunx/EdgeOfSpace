@@ -373,9 +373,9 @@ MonoBehaviour:
   dashTime: 0.2
   dashCoolDown: 0.4
   dashMultiplier: 0.77
+  superDashTime: 1
   maxDrag: 6.8
-  health: 1
-  score: 0
+  objectLayer: 7
 --- !u!212 &534972306
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 617878704}
   - component: {fileID: 617878705}
   - component: {fileID: 617878706}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: EndEntity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
