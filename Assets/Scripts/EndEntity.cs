@@ -23,10 +23,10 @@ public class EndEntity : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D other){
-        if(other.gameObject.tag != "Player"){
-            Destroy(other.gameObject);
-        }else{
+        if(other.gameObject.layer == 3){
             other.GetComponent<PlayerController>().HandleDeath();
+        }else{
+            Destroy(other.gameObject);
         }
     }
 }
