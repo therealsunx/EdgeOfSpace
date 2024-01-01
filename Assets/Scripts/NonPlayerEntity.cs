@@ -36,6 +36,7 @@ public class NonPlayerEntity: MonoBehaviour {
                 props.score += captureReward;
                 Destroy(gameObject);
                 CameraShake.instance.ShakeCamera(4.2f);
+                ParticleManager.instance.StartExplosion(transform.position);
             }else if(!props.isInvincible){
                 props.health -= (1f - props.armor) * effectOnHealth;
                 props.armor -= effectOnArmor;

@@ -346,6 +346,9 @@ MonoBehaviour:
   dashTime: 0.2
   dashCoolDown: 0.4
   dashMultiplier: 0.77
+  nrm_color: {r: 0, g: 1, b: 0.7415004, a: 1}
+  hrt_color: {r: 0.8775481, g: 0.8980392, b: 0, a: 1}
+  att_color: {r: 1, g: 0, b: 0, a: 1}
   maxDrag: 6.8
 --- !u!212 &534972306
 SpriteRenderer:
@@ -389,7 +392,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2144644949875413120, guid: a78db10d8c096725381f414887e725a2, type: 3}
-  m_Color: {r: 0.5843632, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.7411765, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1096,6 +1099,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1131244760}
   - component: {fileID: 1131244761}
+  - component: {fileID: 1131244762}
   m_Layer: 6
   m_Name: Environment
   m_TagString: Untagged
@@ -1143,6 +1147,19 @@ MonoBehaviour:
   - {fileID: 9023019995456401432, guid: d0984fdf95ba50f27afd9db6599a73de, type: 3}
   - {fileID: 1949142109667183091, guid: 115dbd4a442f7af94adb1943f68784da, type: 3}
   - {fileID: 7899509010329909388, guid: 17dec90662e40c8a0b2ba1bf8787723a, type: 3}
+--- !u!114 &1131244762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131244759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5660a5cfae18963796e6920812af6e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 3877380914052120540, guid: 3833ffbc94f08b505928b39b13d1bc43, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

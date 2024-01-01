@@ -24,9 +24,10 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] TrailRenderer trail;
     [SerializeField] LineRenderer line;
     [SerializeField] float dashTime = 0.2f, dashCoolDown = 0.4f, dashMultiplier = 1f;
+    [SerializeField] Color nrm_color, hrt_color, att_color;
     public float maxDrag = 6.8f;
     
-    float invincibleTime = 0.3f;
+    float invincibleTime = 0.2f;
     
     Vector3 pointerPos;
     Vector3 initialPos;
@@ -34,8 +35,13 @@ public class PlayerController : MonoBehaviour {
 
     bool dragging = false;
     float _lastH = 0f;
+
+    SpriteRenderer sp;
+    Color trg_color;
     
     void Start(){
+        trg_color = nrm_color;
+        sp = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
     }
@@ -45,6 +51,7 @@ public class PlayerController : MonoBehaviour {
         trail.emitting = rb.velocity.magnitude > 10f;
         HandleScore();
         HandleInput();
+        UpdateColor();
     }
 
     void HandleScore(){
@@ -55,6 +62,10 @@ public class PlayerController : MonoBehaviour {
            _lastH = transform.position.y;
            difficulty = 1f + props.score / 300f;
         }
+    }
+
+    void UpdateColor(){
+        sp.color = Color.Lerp(sp.color, trg_color, 5f);
     }
 
     public void HandleDeath(){
@@ -99,6 +110,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     IEnumerator Dash(){
+        trg_color = att_color;
         props.isDashing = true;
         props.isInvincible =true;
         yield return new WaitForSeconds(dashTime);
@@ -107,12 +119,15 @@ public class PlayerController : MonoBehaviour {
         props.isDashing = false;
         props.isInvincible = false;
         rb.gravityScale = 3f;
+        trg_color = nrm_color;
     }
 
     IEnumerator Invincible(){
+        trg_color = hrt_color;
         props.isInvincible = true;
         yield return new WaitForSeconds(invincibleTime);
         props.isInvincible = false;
+        trg_color = nrm_color;
     }
 
     void OnTriggerEnter2D(Collider2D other){

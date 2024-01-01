@@ -24,7 +24,7 @@ public class EnvironmentHandler: MonoBehaviour {
     void Update(){
         curBGCoordY = Mathf.RoundToInt(player.position.y / size);
         
-        foreach(var i in bgInView) if(Mathf.Abs(i.Key - curBGCoordY) > viewDist) _temp.Add(i.Key);
+        foreach(var i in bgInView) if(Mathf.Abs(i.Key - curBGCoordY) > 1f) _temp.Add(i.Key);
         foreach(var i in _temp) {
             Destroy(bgInView[i]);
             bgInView.Remove(i);

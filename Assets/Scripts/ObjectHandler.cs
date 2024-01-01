@@ -15,7 +15,7 @@ public class ObjectHandler: MonoBehaviour {
     Vector3 spawnPoint;
 
     void Start(){
-        spawnPoint = Vector3.up * (player.position.y + p_gap);
+        spawnPoint = Vector3.up * (player.position.y + p_gap+1f);
         spreadY = 0f;
         lastY = spawnPoint.y;
     }
