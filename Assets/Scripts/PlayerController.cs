@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void UpdateColor(){
-        sp.color = Color.Lerp(sp.color, trg_color, 5f);
+        sp.color = Color.Lerp(sp.color, trg_color, 0.2f);
     }
 
     public void HandleDeath(){
@@ -81,7 +81,9 @@ public class PlayerController : MonoBehaviour {
                 rb.gravityScale = 0f;
                 dragging = true;
                 line.positionCount = 1;
-                line.SetPosition(0, transform.position);
+                Vector3 _p = transform.position;
+                _p.z=0.1f;
+                line.SetPosition(0, _p);
                 initialPos = pointerPos;
             }else if(rb.velocity.magnitude > 3f){
                 transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(rb.velocity.y, rb.velocity.x) * 57.29f);
@@ -96,7 +98,9 @@ public class PlayerController : MonoBehaviour {
                 HandleRelease();
             }else {
                 line.positionCount = 2;
-                line.SetPosition(1, transform.position + stretch);
+                Vector3 _p = transform.position;
+                _p.z=0.1f;
+                line.SetPosition(1, _p + stretch);
                 transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(-stretch.y, -stretch.x) * 57.29f);
             }
         }
