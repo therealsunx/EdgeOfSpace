@@ -61,8 +61,8 @@ Transform:
   m_GameObject: {fileID: 6434334928133062745}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 16, z: 1}
+  m_LocalPosition: {x: -11.1665, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 21.3333, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7807206814827795905}
@@ -191,8 +191,8 @@ Transform:
   m_GameObject: {fileID: 7697962308189452942}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 16, z: 1}
+  m_LocalPosition: {x: 11.16665, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 21.33333, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7807206814827795905}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 4508787323979772446}
   - component: {fileID: 2413093185697581391}
   m_Layer: 0
-  m_Name: Purple_Nebula_01-1024x1024
+  m_Name: bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -367,7 +367,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: de3738ae27394ed9eaaaa0192b04b763, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b1911f55a8190d20b4a9ef4fcfa8178, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

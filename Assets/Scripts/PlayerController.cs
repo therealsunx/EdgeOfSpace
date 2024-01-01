@@ -6,7 +6,6 @@ public struct PlayerProps {
     public bool isAlive;
     public bool isDashing;
     public bool isInvincible;
-    public bool superDashMode;
     public float health;
     public float armor;
     public int score;
@@ -16,7 +15,7 @@ public class PlayerController : MonoBehaviour {
 
     public static float difficulty = 1f;
     PlayerProps props = new PlayerProps{
-        isAlive = true, isDashing = false, isInvincible = false, superDashMode = false, health = 1f, armor = 1f, score=0
+        isAlive = true, isDashing = false, isInvincible = false, health = 1f, armor = 1f, score=0
     };
 
     Camera cam;
@@ -24,9 +23,8 @@ public class PlayerController : MonoBehaviour {
     
     [SerializeField] TrailRenderer trail;
     [SerializeField] LineRenderer line;
-    [SerializeField] float dashTime = 0.2f, dashCoolDown = 0.4f, dashMultiplier = 1f, superDashTime = 1f;
+    [SerializeField] float dashTime = 0.2f, dashCoolDown = 0.4f, dashMultiplier = 1f;
     public float maxDrag = 6.8f;
-    [SerializeField] int objectLayer = 7;
     
     float invincibleTime = 0.3f;
     
@@ -117,19 +115,9 @@ public class PlayerController : MonoBehaviour {
         props.isInvincible = false;
     }
 
-    IEnumerator SuperDash(){
-        props.superDashMode = true;
-        rb.gravityScale = 0f;
-        yield return new WaitForSeconds(superDashTime);
-        rb.gravityScale =  3f;
-        props.superDashMode = false;
-    }
-
     void OnTriggerEnter2D(Collider2D other){
-        if(props.superDashMode && other.gameObject.layer == objectLayer) Destroy(other.gameObject);
         if(other.gameObject.tag == "npe"){
             if(other.GetComponent<NonPlayerEntity>().HandlePlayerCollision(ref props)) StartCoroutine(Invincible());
-            else if(Random.value > 0.9f) StartCoroutine(SuperDash());
         }
     }
 }

@@ -35,9 +35,11 @@ public class NonPlayerEntity: MonoBehaviour {
             if(props.isDashing) {
                 props.score += captureReward;
                 Destroy(gameObject);
+                CameraShake.instance.ShakeCamera(4.2f);
             }else if(!props.isInvincible){
                 props.health -= (1f - props.armor) * effectOnHealth;
                 props.armor -= effectOnArmor;
+                CameraShake.instance.ShakeCamera(3.2f);
                 return true;
             }
         }else{
